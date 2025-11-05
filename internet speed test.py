@@ -1,12 +1,7 @@
-# ----------------------------------------------------------
-# Internet Speed Monitoring Script (Auto-install Libraries)
-# ----------------------------------------------------------
-
 import subprocess
 import sys
 import importlib
 
-# --- Auto Install Required Packages ---
 required = ['speedtest-cli', 'schedule']
 for package in required:
     try:
@@ -15,7 +10,6 @@ for package in required:
         print(f"[INFO] Installing missing package: {package}")
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-# --- Imports after ensuring installation ---
 import speedtest
 import schedule
 import datetime
@@ -35,13 +29,11 @@ def run_speed_test(log_file='speed_log.csv'):
         ping = st.results.ping
         server = st.results.server['name']
 
-        # Optional fields (not always available)
         jitter = getattr(st.results, 'jitter', 'N/A')
         packet_loss = getattr(st.results, 'packet_loss', 'N/A')
 
         timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        # Write to CSV
         with open(log_file, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([timestamp, round(download, 2), round(upload, 2),
@@ -82,3 +74,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
