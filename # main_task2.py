@@ -4,9 +4,6 @@ import sys
 import json
 from collections import Counter
 
-# ==========================
-# 🔹 Step 1: Ensure folder and file exist
-# ==========================
 folder_name = "mymodules"
 os.makedirs(folder_name, exist_ok=True)
 functions_path = os.path.join(folder_name, "functions.py")
@@ -46,19 +43,10 @@ def summary_report(filename):
         print("Invalid JSON format.")
 ''')
 
-# ==========================
-# 🔹 Step 2: Add folder to Python path
-# ==========================
 sys.path.append(os.path.abspath(folder_name))
 
-# ==========================
-# 🔹 Step 3: Import the function dynamically
-# ==========================
 from functions import summary_report
 
-# ==========================
-# 🔹 Step 4: Create a sample JSON file if missing
-# ==========================
 sample_data = [
     {"user": "alice", "ip": "192.168.1.10", "status": "failure"},
     {"user": "alice", "ip": "192.168.1.10", "status": "failure"},
@@ -74,8 +62,6 @@ if not os.path.exists(json_file):
     with open(json_file, "w") as f:
         json.dump(sample_data, f, indent=4)
 
-# ==========================
-# 🔹 Step 5: Run the summary report
-# ==========================
 if __name__ == "__main__":
+
     summary_report(json_file)
